@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>VES 2023 Budget</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script defer src="https://unpkg.com/alpinejs@3.9.6/dist/cdn.min.js"></script>
+</head>
+<body>
+  <script>
+      let lastMonth = <?=LastMonth?>
+ </script>
+
+<div x-data = "{
+  currentRate: 1.05,
+  monthCount: 12,
+  lastMonth: lastMonth,
+  refreshAll(){google.script.run.budgetSheet(this.monthCount,this.currentRate)},
+  rateChage(){google.script.run.ratetoSheet(this.currentRate)},
+  populateForecast(){google.script.run.populateForecast(this.currentRate)},
+}">
+
+<div class="w3-container">
+  <div class="w3-panel w3-blue w3-center">
+    Last Month: <strong x-text="lastMonth"></strong>    
+  </div> 
+
+  <div class="w3-panel w3-blue w3-center">
+    # of Past Months Used : <strong x-text="monthCount"></strong>    
+  </div>
+
+  <div class="w3-panel w3-blue w3-center">
+    Last Escalation Used : <strong x-text="currentRate"></strong>    
+  </div>   
+
+  <div class = "w3-border-bottom w3-border-top">
+    <div class="w3-cell-row">  
+      <label class="w3-cell" style="width: 150px">Change Escalation:</label>
+      <input x-model="currentRate" class="w3-input w3-cell" style = "width: 60px" type="text" placeholder ="enter">
+      <button @click="populateForecast()" class="w3-cell w3-button w3-green w3-justify-right" style="width:45px">></button>
+    </div>
+  </div>
+ <br>
+ <div class = "w3-border-bottom w3-border-top">
+    <div class="w3-cell-row">  
+      <label class="w3-cell" style="width: 150px">Change # Months:</label>
+      <input x-model="monthCount" class="w3-input w3-cell" style = "width: 60px" type="text" placeholder ="enter">
+      <button @click="refreshAll()" class="w3-cell w3-button w3-green w3-justify-right" style="width:45px">></button>
+    </div>
+  </div>
+ <br>
+  <!-- <div class="w3-justify-center" style="display: flex; justify-content:center;">
+    <button @click="refreshAll" class="w3-button w3-blue w3-center">Refresh ALL</button>
+  </div>
+  <br><br>
+   <div class="w3-justify-center" style="display: flex; justify-content:center;">
+    <button @click="populateForecast" class="w3-button w3-blue w3-center">Update Forecast</button>
+  </div> -->
+
+</div>
+</div>
+</body>
+</html>
